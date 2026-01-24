@@ -1,0 +1,13 @@
+type Product{
+id: ID!
+productName: String
+price: Float
+category: String
+brand: String
+origin: String
+}
+
+type Query{
+ getAll: [Product]
+ findByCategory(category: String) :[Product]
+}
