@@ -11,3 +11,14 @@ type Query{
  getAll: [Product]
  findByCategory(category: String) :[Product]
 }
+
+type Mutation {
+createNewProduct(productName: String,
+                 price: String,
+                 category: String,
+                 brand: String,
+                 origin: String) : Product
+ updateProduct(id: ID!,brand:String) : Product
+
+
+}

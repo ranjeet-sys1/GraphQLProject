@@ -20,4 +20,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findByCategory(String category) {
         return repository.findByCategory(category);
     }
+
+    @Override
+    public Product saveProduct(Product product) {
+        return repository.save(product);
+    }
+
+    @Override
+    public Product findByProductId(int id) {
+        return repository.getReferenceById(id);
+    }
 }
