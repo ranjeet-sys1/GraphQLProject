@@ -1,8 +1,15 @@
 package com.example.graphQl.controller;
 
+import com.example.graphQl.DTO.ProductFilterInput;
+import com.example.graphQl.DTO.ProductPagination;
 import com.example.graphQl.entity.Product;
+import com.example.graphQl.repository.ProductRepository;
 import com.example.graphQl.service.ProductService;
+import com.example.graphQl.specification.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -17,6 +24,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductRepository repository;
     @QueryMapping
     public List<Product> getAll(){
         return productService.getAll();
@@ -54,6 +63,30 @@ public class ProductController {
         }
         return productService.saveProduct(isExistProduct);
 
+    }
+
+
+    @QueryMapping
+    public ProductPagination getProducts(
+            @Argument int page,
+            @Argument int size,
+            @Argument ProductFilterInput filter) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Product> userPage =
+                repository.findAll(
+                        ProductSpecification.filter(filter),
+                        pageable
+                );
+
+        ProductPagination response = new ProductPagination();
+        response.setContent(userPage.getContent());
+        response.setTotalElements(userPage.getTotalElements());
+        response.setTotalPages(userPage.getTotalPages());
+        response.setCurrentPage(userPage.getNumber());
+
+        return response;
     }
 
 

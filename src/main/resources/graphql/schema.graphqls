@@ -8,17 +8,32 @@ origin: String
 }
 
 type Query{
- getAll: [Product]
- findByCategory(category: String) :[Product]
+    getAll: [Product]
+    findByCategory(category: String) :[Product]
+    getProducts(page:Int,
+        size:Int,
+        filter:ProductFilterInput): ProductPagination
 }
 
 type Mutation {
-createNewProduct(productName: String,
-                 price: String,
-                 category: String,
-                 brand: String,
-                 origin: String) : Product
- updateProduct(id: ID!,brand:String) : Product
+    createNewProduct(productName: String,
+        price: String,
+        category: String,
+        brand: String,
+        origin: String) : Product
+    updateProduct(id: ID!,brand:String) : Product
+}
 
-
+input ProductFilterInput{
+    productName: String
+    price: Float
+    category: String
+    brand: String
+    origin: String
+}
+type ProductPagination{
+content:[Product]
+totalElements:Int
+totalPages:Int
+currentPage:Int
 }
