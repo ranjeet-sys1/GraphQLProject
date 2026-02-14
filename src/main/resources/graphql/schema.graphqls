@@ -1,10 +1,17 @@
+scalar DateTime
+
 type Product{
-id: ID!
-productName: String
-price: Float
-category: String
-brand: String
-origin: String
+    id: ID!
+    productName: String
+    price: Float
+    category: String
+    brand: String
+    origin: String
+    createdBy: String
+    createdOn: DateTime
+    lastUpdatedBy: String
+    lastUpdatedOn: DateTime
+    isActive: Boolean
 }
 
 type Query{
@@ -17,7 +24,7 @@ type Query{
 
 type Mutation {
     createNewProduct(productName: String,
-        price: String,
+        price: Float,
         category: String,
         brand: String,
         origin: String) : Product

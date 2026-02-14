@@ -13,7 +13,7 @@ import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name="product")
-public class Product {
+public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
