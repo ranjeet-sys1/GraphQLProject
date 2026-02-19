@@ -20,6 +20,7 @@ type Query{
     getProducts(page:Int,
         size:Int,
         filter:ProductFilterInput): ProductPagination
+    securedQuery:String
 }
 
 type Mutation {
