@@ -54,3 +54,33 @@ F --> G[PasswordEncoder.matches()]
 G --> H[Authentication Successful]
 H --> I[JwtService.generateAccessToken()]
 I --> J[Return LoginResponse]
+ 
+
+# deep flow for login using spring security
+
+```text
+Controller
+    ↓
+authenticationManager.authenticate()
+    ↓
+ProviderManager.authenticate()
+    ↓
+DaoAuthenticationProvider.authenticate()
+    ↓
+retrieveUser()
+    ↓
+loadUserByUsername()   ← your class
+    ↓ (returns UserDetails)
+DaoAuthenticationProvider.authenticate()
+    ↓
+passwordEncoder.matches()
+    ↓
+createSuccessAuthentication()
+    ↓
+NEW UsernamePasswordAuthenticationToken (authenticated)
+    ↓
+Return to ProviderManager
+    ↓
+Return to Controller                      
+          
+```
