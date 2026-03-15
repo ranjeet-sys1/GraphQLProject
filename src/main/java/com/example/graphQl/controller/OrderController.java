@@ -25,4 +25,12 @@ public class OrderController {
 
         return "Order sent to RabbitMQ";
     }
+    @PostMapping
+    public String send(@RequestBody String msg) {
+
+        producer.sendMessage(msg);
+
+        return "Message sent";
+
+    }
 }
